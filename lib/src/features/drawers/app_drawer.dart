@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pizza/src/app/api/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawerWidget extends StatelessWidget {
   const AppDrawerWidget({super.key});
@@ -26,6 +28,15 @@ class AppDrawerWidget extends StatelessWidget {
             title: const Text('Panier'),
             onTap: () {
               Navigator.pushNamed(context, '/cart');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () async {
+              await Provider.of<AuthProvider>(context, listen: false).logout();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/login', (route) => false);
             },
           ),
         ],
